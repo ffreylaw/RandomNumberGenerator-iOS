@@ -12,21 +12,15 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = .white
         setupNavigation()
         setupView()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func setupNavigation() {
         navigationController?.navigationBar.isTranslucent = false
         navigationItem.title = "RandomNumberGenerator"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset))
     }
     
     func setupView() {
@@ -34,12 +28,11 @@ class ViewController: UIViewController {
         view.addSubview(minInputContainerView)
         view.addSubview(maxInputContainerView)
         view.addSubview(generateButton)
-        view.addSubview(resetButton)
         
         resultTextLabel.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 8).isActive = true
         resultTextLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         resultTextLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -16).isActive = true
-        resultTextLabel.heightAnchor.constraint(equalToConstant: 128).isActive = true
+        resultTextLabel.heightAnchor.constraint(equalToConstant: 256).isActive = true
         
         minInputContainerView.topAnchor.constraint(equalTo: resultTextLabel.bottomAnchor, constant: 8).isActive = true
         minInputContainerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
@@ -68,10 +61,6 @@ class ViewController: UIViewController {
         generateButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -16).isActive = true
         generateButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
-        resetButton.topAnchor.constraint(equalTo: generateButton.bottomAnchor, constant: 8).isActive = true
-        resetButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        resetButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -16).isActive = true
-        resetButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     func handleGenerate() {
@@ -92,7 +81,7 @@ class ViewController: UIViewController {
     }
     
     func handleReset() {
-        resultTextLabel.text = "Rand Num Gen"
+        resultTextLabel.text = "RandNumGen"
         minInputTextField.text = ""
         maxInputTextField.text = ""
     }
@@ -100,33 +89,33 @@ class ViewController: UIViewController {
     let resultTextLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = UIColor.black
-        label.text = "Rand Num Gen"
-        label.textColor = UIColor.white
+        label.backgroundColor = .black
+        label.text = "RandNumGen"
+        label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 32)
         label.textAlignment = NSTextAlignment.center
-        label.layer.borderWidth = 1
         label.layer.borderColor = UIColor.black.cgColor
+        label.layer.borderWidth = 1 / UIScreen.main.scale
         return label
     }()
     
     let minInputContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = .white
         view.layer.masksToBounds = true
         view.layer.borderColor = UIColor.black.cgColor
-        view.layer.borderWidth = 1
+        view.layer.borderWidth = 1 / UIScreen.main.scale
         return view
     }()
     
     let maxInputContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = .white
         view.layer.masksToBounds = true
         view.layer.borderColor = UIColor.black.cgColor
-        view.layer.borderWidth = 1
+        view.layer.borderWidth = 1 / UIScreen.main.scale
         return view
     }()
     
@@ -149,26 +138,13 @@ class ViewController: UIViewController {
     lazy var generateButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor.white
+        button.backgroundColor = .white
         button.setTitle("Generate", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.layer.borderColor = UIColor.black.cgColor
-        button.layer.borderWidth = 1
+        button.layer.borderWidth = 1 / UIScreen.main.scale
         button.addTarget(self, action: #selector(handleGenerate), for: .touchUpInside)
-        return button
-    }()
-    
-    lazy var resetButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor.lightGray
-        button.setTitle("Reset", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.layer.borderColor = UIColor.black.cgColor
-        button.layer.borderWidth = 1
-        button.addTarget(self, action: #selector(handleReset), for: .touchUpInside)
         return button
     }()
     
